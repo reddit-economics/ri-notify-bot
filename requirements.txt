@@ -1,2 +1,4 @@
 praw
-slackclient
+
+# Pinned because of https://github.com/slackapi/python-slackclient/issues/545
+slackclient==2.2.1
