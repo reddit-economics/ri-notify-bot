@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
+import argparse
 import configparser
 import praw
 import slack
-import multiprocessing
 
 config = configparser.ConfigParser()
 config.read('settings.conf')
@@ -59,9 +59,16 @@ def new_watcher():
 
 
 def main():
-    process = multiprocessing.Process(target=command_watcher)
-    process.start()
-    new_watcher()
+    parser = argparse.ArgumentParser()
+    sp = parser.add_subparsers(dest='command')
+    sp.add_parser('command_watcher')
+    sp.add_parser('post_watcher')
+    args = parser.parse_args()
+
+    if args.command == 'command_watcher':
+        command_watcher()
+    elif args.command == 'post_watcher':
+        new_watcher()
 
 
 if __name__ == '__main__':
