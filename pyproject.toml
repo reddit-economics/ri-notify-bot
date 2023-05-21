@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "badeconomics-ri-notify-bot"
+authors = [
+    {name = "Antoine Pietri", email = "antoine.pietri1@gmail.com"},
+]
+description = "Notifies new RIs posted on /r/badeconomics."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "GPLv2"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "praw",
+    "slack_sdk",
+]
+dynamic = ["version"]
+
+[project.scripts]
+badeconomics-ri-notify-bot = "ri_notify:main"
