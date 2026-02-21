@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import datetime
 import configparser
 import logging
 import praw
@@ -49,6 +50,17 @@ class Bot:
             skip_existing=True
         ):
             if str(submission.author) == 'AutoModerator':
+                continue
+            # Skip submissions older than 4 hours to workaround
+            # https://github.com/praw-dev/praw/issues/2090
+            # https://www.reddit.com/r/bugs/comments/1nzpf87/praw_api_old_submissions_sporadically_showing_up/
+            timedelta = (
+                datetime.datetime.now(datetime.UTC)
+                - datetime.datetime.fromtimestamp(
+                    submission.created_utc, tz=datetime.UTC
+                )
+            )
+            if timedelta.total_seconds() > 60 * 60 * 4:
                 continue
             self.rtm_client.web_client.chat_postMessage(
                 channel=self.slack_channel,
