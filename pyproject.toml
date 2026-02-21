@@ -10,7 +10,7 @@ authors = [
 description = "Notifies new RIs posted on /r/badeconomics."
 readme = "README.md"
 requires-python = ">=3.7"
-license = {text = "GPLv2"}
+license = "GPL-3.0"
 classifiers = [
     "Programming Language :: Python :: 3",
 ]
